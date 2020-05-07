@@ -19,6 +19,11 @@ TODO:
 - change embed to own function in context
 */
 
+   	if !IsMemberOfTeam(ctx.Discord, ctx.User.ID){
+        ctx.Reply("Sorry, you're not in the team, you cannot see the leaderboard")
+        return
+    }
+
     // Get users list
     var users []config.User
     byteValue, err := ioutil.ReadFile("users.json")

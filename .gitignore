@@ -1,0 +1,7 @@
+*.json
+*.cache
+*.sublime-settings
+*.sublime-workspace
+*.crt
+*.ca-list
+*.last-run

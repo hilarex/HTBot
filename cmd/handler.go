@@ -189,3 +189,34 @@ func isBotReaction(s *discordgo.Session, reactions []*discordgo.MessageReactions
 
 	return false
 }
+
+func IsMemberOfTeam(session *discordgo.Session, userID string) bool{
+    member, err := session.State.Member(config.Discord.GuildID, userID)
+    if err != nil {
+        if member, err = session.GuildMember(config.Discord.GuildID, userID); err != nil {
+            return false
+        }
+    }
+
+    result := false
+    // Iterate through the role IDs stored in member.Roles
+
+    roles, _ := session.GuildRoles(config.Discord.GuildID)
+    for _, role := range roles{
+        if isInSlice(role.ID, member.Roles){
+            if role.Name == "Pirates" || role.Name == "HideAndSec"{
+                result = true
+            }
+        }
+    }
+    return result
+}
+
+func isInSlice(val string, slice []string) bool {
+    for _, item := range slice {
+        if item == val {
+            return true
+        }
+    }
+    return false
+}

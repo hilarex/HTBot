@@ -17,6 +17,10 @@ func MeCommand(ctx framework.Context) {
 TODO:
 - move embed
 */
+    if !IsMemberOfTeam(ctx.Discord, ctx.User.ID){
+        ctx.Reply("Sorry, you're not in the team, you cannot see the leaderboard")
+        return
+    }
 
 	var users []config.User
     byteValue, err := ioutil.ReadFile("users.json")
