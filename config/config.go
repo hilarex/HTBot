@@ -23,6 +23,7 @@ type ConfigDiscord struct {
 	Token 	    string `json:"bot_token"`
 	GuildID		string `json:"guild_id"`
 	Shoutbox    string `json:"shoutbox_id"`
+	TeamID 		string `json:"team_id"`
 }
 
 // Struct for HTB json files

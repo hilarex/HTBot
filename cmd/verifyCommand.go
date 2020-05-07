@@ -21,6 +21,26 @@ TODO:
 - Add mutex to write !
 - Add instructions in private message
 */
+    member, err := ctx.Discord.State.Member(config.Discord.GuildID, ctx.User.ID)
+    if err != nil {
+        if member, err = ctx.Discord.GuildMember(config.Discord.GuildID, ctx.User.ID); err != nil {
+            return
+        }
+    }
+
+    isMemberOfTeam := false
+    // Iterate through the role IDs stored in member.Roles
+    for _, roleID := range member.Roles {
+        if roleID == config.Discord.TeamID {
+            isMemberOfTeam = true
+        }
+    }
+
+    if !isMemberOfTeam{
+        ctx.Discord.ChannelMessageDelete(ctx.Channel.ID, ctx.Message.ID)
+        ctx.Reply("Sorry, you're not in the team, you cannot get verify for now")
+        return
+    }
 
     if ctx.Channel.GuildID != ""{
         ctx.Discord.ChannelMessageDelete(ctx.Channel.ID, ctx.Message.ID)
