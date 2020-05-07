@@ -21,22 +21,8 @@ TODO:
 - Add mutex to write !
 - Add instructions in private message
 */
-    member, err := ctx.Discord.State.Member(config.Discord.GuildID, ctx.User.ID)
-    if err != nil {
-        if member, err = ctx.Discord.GuildMember(config.Discord.GuildID, ctx.User.ID); err != nil {
-            return
-        }
-    }
-
-    isMemberOfTeam := false
-    // Iterate through the role IDs stored in member.Roles
-    for _, roleID := range member.Roles {
-        if roleID == config.Discord.TeamID {
-            isMemberOfTeam = true
-        }
-    }
-
-    if !isMemberOfTeam{
+   
+   if !isMemberOfTeam(ctx.Discord, ctx.User.ID){
         ctx.Discord.ChannelMessageDelete(ctx.Channel.ID, ctx.Message.ID)
         ctx.Reply("Sorry, you're not in the team, you cannot get verify for now")
         return
@@ -127,4 +113,36 @@ TODO:
     // Update the users.json to prevent overwriting updated data (not optimal...)
     htb.RefreshUsers()
     return
+}
+
+
+func isMemberOfTeam(session *discordgo.Session, userID string) bool{
+    member, err := session.State.Member(config.Discord.GuildID, userID)
+    if err != nil {
+        if member, err = session.GuildMember(config.Discord.GuildID, userID); err != nil {
+            return false
+        }
+    }
+
+    result := false
+    // Iterate through the role IDs stored in member.Roles
+
+    roles, _ := session.GuildRoles(config.Discord.GuildID)
+    for _, role := range roles{
+        if isInSlice(role.ID, member.Roles){
+            if role.Name == "Pirates" || role.Name == "HideAndSec"{
+                result = true
+            }
+        }
+    }
+    return result
+}
+
+func isInSlice(val string, slice []string) bool {
+    for _, item := range slice {
+        if item == val {
+            return true
+        }
+    }
+    return false
 }
