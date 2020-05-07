@@ -30,8 +30,6 @@ func RefreshChallenges() {
 /*
 function to create boxes.json with all the HTB box
 TODO
-- add verification to prevent rewrite
-- add lock to write ?
 - Add Real difficulty / Rate
 */
     categories := []string{"Reversing", "Crypto", "Stego", "Pwn", "Web", "Misc", "Forensics", "Mobile", "OSINT"}

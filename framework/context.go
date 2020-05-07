@@ -58,23 +58,3 @@ func (ctx Context) ReplyShoutbox(content string) *discordgo.Message {
 	}
 	return msg
 }
-
-
-/*
-func (ctx Context) GetChannelID(name string) string {
-	channels, err := ctx.Discord.GuildChannels(ctx.Guild.ID)
-	if err != nil{
-		fmt.Println("Error whilst getting channel ID,", err)
-		return "error"
-	}
-
-	for _, c := range channels {
-		if c.Name == name{
-			fmt.Println(c.ID)
-			return c.ID
-		}
-	}
-	return "none"
-}
-
-*/

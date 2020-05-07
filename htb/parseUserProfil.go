@@ -54,14 +54,13 @@ Get information about an user by scrapping his HTB profil
     r = regexp.MustCompile(`www.hackthebox.eu/home/teams/profile/(\d+)\">(.+?)<`)
     match = r.FindStringSubmatch(html)
     if(match != nil){
-        teamName = match[2]
         //teamID = match[1]
+        teamName = match[2]
     }
     r = regexp.MustCompile(`([a-zA-Z]+)"><span class="flag flag-`)
     match = r.FindStringSubmatch(html)
     if(match != nil){
         country = match[1]
-        //teamID = match[1]
     }
     r = regexp.MustCompile("Ownership: (.+?)%")
     ownership = r.FindStringSubmatch(html)[1]

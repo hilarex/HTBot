@@ -23,9 +23,6 @@ func StartRefreshIppsec(ticker *time.Ticker){
 func RefreshIppsec() {
 /*
 function to create ippsec.json with all the video of ippsec
-TODO
-- add verification to prevent rewrite
-- add lock to write ?
 */
 
 	client := &http.Client{

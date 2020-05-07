@@ -18,7 +18,6 @@ func VerifyCommand(ctx framework.Context) {
 /*
 TODO:
 - add roles when we verify our account
-- move embed to own function
 - Add mutex to write !
 - Add instructions in private message
 */

@@ -16,9 +16,6 @@ func ListChallsCommand(ctx framework.Context) {
 /*
 Send info about the last HTB box
 TODO :
-- move the reply function to context
-- use : https://github.com/bwmarrin/discordgo/wiki/FAQ#sending-embeds 
-
 - Add flag remaining for user
 - Add flag to display only one difficulty
 */

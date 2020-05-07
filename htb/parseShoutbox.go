@@ -33,12 +33,6 @@ func StartParseShoutbox(ticker *time.Ticker, session *discordgo.Session){
 func ParseShoutbox(session *discordgo.Session) {
 /*
 function to parse shoutbox api
-TODO
-- clean function with strconv and all
-- add reaction
-- add prolabs :
-    <p><span class="text-info">[May 01 22:00]</span> <a href="https://www.hackthebox.eu/home/users/profile/226423">init5</a> got flag <span class="text-success">All powerful, all knowing</span> from <span class="text-info">Offshore</span> <a class="nohover" href="https://twitter.com/intent/tweet?text=init5 just got flag All powerful, all knowing from Offshore !&amp;url=https://www.hackthebox.eu&amp;via=hackthebox_eu"><span class="text-info">[<i class="fab fa-twitter"></i>Tweet]</span></a></p>
-    <p><span class="text-info">[May 02 12:22]</span> <a href="https://www.hackthebox.eu/home/users/profile/206859">PhoenixKiller</a> got flag <span class="text-success">Connect</span> from <a href="https://www.hackthebox.eu/home/careers/company/3">Jet.com</a> <span class="c-white"><i class="fab fa-fort-awesome"></i> Fortress</span> <a class="nohover" href="https://twitter.com/intent/tweet?text=PhoenixKiller just got flag Connect from Jet.com Fortress!&amp;url=https://www.hackthebox.eu&amp;via=hackthebox_eu"><span class="text-info">[<i class="fab fa-twitter"></i>Tweet]</span></a></p>
 */
 
     regexList := map[string]string{
