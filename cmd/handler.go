@@ -209,7 +209,7 @@ func IsMemberOfTeam(session *discordgo.Session, userID string) bool{
 
     roles, _ := session.GuildRoles(config.Discord.GuildID)
     for _, role := range roles{
-        if isInSlice(role.ID, member.Roles){
+        if framework.IsInSlice(role.ID, member.Roles){
             if role.Name == "Pirates" || role.Name == "HideAndSec"{
                 result = true
             }
@@ -218,11 +218,3 @@ func IsMemberOfTeam(session *discordgo.Session, userID string) bool{
     return result
 }
 
-func isInSlice(val string, slice []string) bool {
-    for _, item := range slice {
-        if item == val {
-            return true
-        }
-    }
-    return false
-}

@@ -38,6 +38,11 @@ Get completion of prolab for the team
     json.Unmarshal(byteValue, &users)
 
     key := strings.ToLower(ctx.Args[0])
+    if users[0].Prolabs[key] == ""{
+    	ctx.Reply("This lab doesn't exist")
+    	return
+    }
+
 
     // Remove user with 0% completion on a lab
     var usersWithLab []config.User

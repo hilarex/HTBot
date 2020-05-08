@@ -27,6 +27,7 @@ list_challs <category>          list active challs by category
 verify      <api_token>         Verify your HTB account (restricted)
 me                              Get your HTB info (restricted)
 leaderboard                     Get the leaderboard of the guild (restricted)
+prolab      <name>              Get progress of prolabs (restricted)
 ----------- -----------------   --------------------------------------------
 Type `+config.Prefix+`help command for more info on a command.
 You can also type `+config.Prefix+"help category for more info on a category."+"```" )
