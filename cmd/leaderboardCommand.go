@@ -31,9 +31,9 @@ TODO:
         ctx.Reply("No HTB account register.\nType "+config.Prefix+"verify to do it !")
         return
     } 
-    
-    // Order list by points
     json.Unmarshal(byteValue, &users)
+
+    // Order list by points
     sort.Slice(users, func(i, j int) bool {
 	    a, _ := strconv.Atoi(users[i].Points)
 	    b, _ := strconv.Atoi(users[j].Points)

@@ -27,8 +27,15 @@ func GetUserCommand(ctx framework.Context) {
 	user.UserID = id
 
 	// Parse HTB profil to fill data
-	htb.ParseUserProfil(&user)
+	htb.ParseUserProfil(nil, &user)
 
+	ReplyUserInfo(&ctx, &user)
+
+	return
+}
+
+func ReplyUserInfo(ctx *framework.Context, user *config.User){
+    
     var team string = user.Team
  	if team != ""{
  		team = " | 🏡 " + user.Team
@@ -38,6 +45,12 @@ func GetUserCommand(ctx framework.Context) {
  		vip = "  💠"
  	}
 
+    var labs string
+    labs = "|"
+    for v := range user.Prolabs{
+    	labs += fmt.Sprintf(" **%v**: %v%% |", v, user.Prolabs[v])
+    }	
+
 	embed := &discordgo.MessageEmbed{
     Color:       0x69c0ce, 
     Description: fmt.Sprintf("🎯 %v • 🏆 %v • 👤 %v • ⭐ %v", user.Points, user.Systems, user.Users, user.Respect),
@@ -46,6 +59,10 @@ func GetUserCommand(ctx framework.Context) {
             Name:   "About",
             Value:  fmt.Sprintf("📍 %v | 🔰 %v%v\n\n**Ownership** : %v%% | **Rank** : %v | ⚙️ **Challenges** : %v", user.Country, user.Level, team, user.Ownership, user.Rank, user.Challs),
             Inline: true,
+        },
+        &discordgo.MessageEmbedField{
+            Name:   "Prolabs",
+            Value:  labs,
         },
     },
    	Thumbnail: &discordgo.MessageEmbedThumbnail{

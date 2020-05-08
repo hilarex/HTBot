@@ -42,10 +42,7 @@ TODO:
 
     for i, _ := range users {
         wg.Add(1)
-        go func() {
-            defer wg.Done()    
-            ParseUserProfil(&users[i])
-        }()
+        go ParseUserProfil(&wg, &users[i])
     }
 
     wg.Wait()

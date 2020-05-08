@@ -52,6 +52,10 @@ func CommandHandler(session *discordgo.Session, message *discordgo.MessageCreate
 	if len(content) < 1 {
 		return
 	}
+	// Ignore citation message
+	if string(content[0]) == " "{
+		return
+	}
 
 	// Get user command
 	args := strings.Fields(content)
@@ -85,7 +89,9 @@ func CommandHandler(session *discordgo.Session, message *discordgo.MessageCreate
 		case "me":
 			MeCommand(*ctx)		
 		case "leaderboard":
-			LeaderboardCommand(*ctx)	
+			LeaderboardCommand(*ctx)
+		case "prolab":
+			ProlabCommand(*ctx)
 		case "get_box":
 			GetBoxCommand(*ctx)	
 		case "get_chall":

@@ -9,12 +9,18 @@ import (
     "regexp"
     "strconv"
     "fmt"
+    "strings"
+    "sync"
 )
 
-func ParseUserProfil(user *config.User){
+func ParseUserProfil(wg *sync.WaitGroup, user *config.User){
 /*
 Get information about an user by scrapping his HTB profil
 */
+    if wg != nil{
+        defer wg.Done()    
+    }
+    
 
     client := &http.Client{
         Timeout: time.Second * 10,
@@ -43,6 +49,7 @@ Get information about an user by scrapping his HTB profil
     }
     html := string(body)
 
+    var VIP bool
     var username, avatar, points, systems, users, respect, country, teamName, level, rank, challenges, ownership string
 
     // Scrapping with regex
@@ -62,6 +69,20 @@ Get information about an user by scrapping his HTB profil
     if(match != nil){
         country = match[1]
     }
+    r = regexp.MustCompile(`V.I.P Member`)
+    match = r.FindStringSubmatch(html)
+    if(match != nil){
+        VIP = true
+    }
+
+    r = regexp.MustCompile(`<td class="col-md-3 text-right"> (RastaLabs|Offshore|Cybernetics) </td> <td> <div> <div data-toggle="tooltip" title="(([0-9]*[.])?[0-9]+)\%"`)
+    prolabs := r.FindAllStringSubmatch(html, -1)
+    tmp := make(map[string]string)
+    for i,_ := range prolabs{
+        tmp[ strings.ToLower(prolabs[i][1]) ] = prolabs[i][2]
+    }
+    user.Prolabs = tmp
+    
     r = regexp.MustCompile("Ownership: (.+?)%")
     ownership = r.FindStringSubmatch(html)[1]
     r  = regexp.MustCompile(`>Rank: (.+?)<`)
@@ -81,7 +102,7 @@ Get information about an user by scrapping his HTB profil
     r = regexp.MustCompile(`class="m-n">(.+?) <`)
     username = r.FindStringSubmatch(html)[1]
 
-
+    user.VIP = VIP
     user.Username = username 
     user.Ownership = ownership
     user.Avatar = avatar

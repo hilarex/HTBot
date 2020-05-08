@@ -35,7 +35,11 @@ TODO
     // First request for boxes info
 	req, _ := http.NewRequest("GET", "https://www.hackthebox.eu/api/machines/get/all/?api_token="+ config.Htb.ApiToken, nil)
 	req.Header.Add("User-Agent", config.USERAGENT)
-	resp, _ := client.Do(req)
+	resp, err := client.Do(req)
+    if err != nil {
+        fmt.Println("[!] RefreshBoxes, error first")
+        return
+    }
     if resp.StatusCode != 200{
         fmt.Println("[!] RefreshBoxes, error all")
         return
@@ -50,7 +54,11 @@ TODO
     // Second request for difficulty ratings
     req, _ = http.NewRequest("GET", "https://www.hackthebox.eu/api/machines/difficulty?api_token="+ config.Htb.ApiToken, nil)
     req.Header.Add("User-Agent", config.USERAGENT)
-    resp, _ = client.Do(req)
+    resp, err = client.Do(req)
+    if err != nil {
+        fmt.Println("[!] RefreshBoxes, error second")
+        return
+    }
     if resp.StatusCode != 200{
         fmt.Println("[!] RefreshBoxes, error difficulty")
         return
@@ -83,7 +91,7 @@ TODO
 
     // Write to json file
     content, _ := json.Marshal(boxes)
-    err := ioutil.WriteFile("boxes.json", content, 0644)
+    err = ioutil.WriteFile("boxes.json", content, 0644)
     if err != nil{
         fmt.Println("[!] RefreshBoxes, error writing file")
     }

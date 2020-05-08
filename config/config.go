@@ -43,6 +43,7 @@ type User struct {
     Rank string `json:"rank"`
     Challs string `json:"challs"`
     Ownership string `json:"ownership"`
+    Prolabs map[string]string `json:"prolabs"`
 }
 
 
