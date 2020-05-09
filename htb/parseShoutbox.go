@@ -2,6 +2,7 @@ package htb
 
 import (
     "../config"
+    "../framework"
 
     "github.com/bwmarrin/discordgo"
     "fmt"
@@ -10,6 +11,7 @@ import (
     "encoding/json"
     "regexp"
     "strconv"
+    "strings"
     "time"
 )
 
@@ -133,8 +135,13 @@ function to parse shoutbox api
                             session.MessageReactionAdd(msg.ChannelID, msg.ID, "🍾")
                         }
                     case "new_box_incoming":
-                        manageHtbChannel(session, match[1])
-                        session.ChannelMessageSend(newHtbChannelID, fmt.Sprintf("⏱ box %v is coming in %v ! ⏱", match[1], match[2]))
+                        timeRemaining := strings.Split(match[2], ":")
+                        if framework.IsInSlice(timeRemaining[0], []string{"19", "09", "01", "00"}){
+                            if framework.IsInSlice(timeRemaining[1], []string{"59"}){
+                                manageHtbChannel(session, strings.ToLower(match[1]))
+                                session.ChannelMessageSend(newHtbChannelID, fmt.Sprintf("⏱ box %v is coming in %v ! ⏱", match[1], match[2]))
+                            }
+                        }
                     case "new_box_out":
                         session.ChannelMessageSend(newHtbChannelID, fmt.Sprintf("🚨 new box %v is live ! 🚨\nWill you get first blood ? @here", match[1]))
                     default:
@@ -158,6 +165,8 @@ func getNewNotifPos(last string, notifs []string) int{
 
 func manageHtbChannel(session *discordgo.Session, boxName string){
     var channelsInCategory []*discordgo.Channel
+    boxName = strings.ToLower(boxName)
+    
     channels, _ := session.GuildChannels(config.Discord.GuildID)
     
     // Parse channels to get the category ID if it is not set
@@ -165,7 +174,7 @@ func manageHtbChannel(session *discordgo.Session, boxName string){
         for _, c := range channels{
             // category type is 4
             if c.Type == 4 {
-                if c.Name == "htb" {
+                if strings.ToLower(c.Name) == "htb" {
                     categoryID = c.ID
                     break
                 }
@@ -176,6 +185,7 @@ func manageHtbChannel(session *discordgo.Session, boxName string){
     // Get list of channels in this category
     for _, c := range channels{
         if c.ParentID == categoryID && c.Name == boxName {
+            newHtbChannelID = c.ID
             return
         }
         if c.ParentID == categoryID{
