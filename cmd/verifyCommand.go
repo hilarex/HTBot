@@ -88,7 +88,7 @@ TODO:
     }
 
     // Fill user data from his HTB profil
-    htb.ParseUserProfil(nil, &user)
+    htb.ParseUserProfil(nil, &user, nil)
     
     // Add the discord ID
     user.DiscordID, _ = strconv.Atoi(ctx.User.ID)

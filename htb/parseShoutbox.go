@@ -136,7 +136,8 @@ function to parse shoutbox api
                         }
                     case "new_box_incoming":
                         timeRemaining := strings.Split(match[2], ":")
-                        if framework.IsInSlice(timeRemaining[0], []string{"19", "09", "01", "00"}){
+                        // match hours and minutes to prevent spam
+                        if framework.IsInSlice(timeRemaining[0], []string{"19", "05", "00"}){
                             if framework.IsInSlice(timeRemaining[1], []string{"59"}){
                                 manageHtbChannel(session, strings.ToLower(match[1]))
                                 session.ChannelMessageSend(newHtbChannelID, fmt.Sprintf("⏱ box %v is coming in %v ! ⏱", match[1], match[2]))

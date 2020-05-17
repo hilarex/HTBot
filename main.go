@@ -14,13 +14,14 @@ import (
 func main() {
 /*
 TODO:
-	- Add users box progress
+	- add writeup
+	- Add new roles when connecting
 	- remove user from users.json when he leaves discord (it breaks user.mention())
 	- modify PrintBoxInfo to get box name as parameter, so we can print it in the Shoutbox function
 
 	- see https://github.com/bwmarrin/discordgo/wiki/FAQ#sending-embeds 
 	
-	- add writeup
+	- add challs in progress
 	- create just one write .json function and all goroutines that send to channel (see end of verifyCommand)
 	- add roles 
 	- add retired challs

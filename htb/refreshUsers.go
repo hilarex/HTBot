@@ -36,13 +36,20 @@ TODO:
     }
     json.Unmarshal(byteValue, &users)
     
-
+    progress := make([]config.Progress, len(users))
+    byteValue, err = ioutil.ReadFile("progress.json")
+    if err != nil{
+        fmt.Println("[!] Error RefreshUsers, cannot read progress.json")
+        return
+    }
+    json.Unmarshal(byteValue, &progress)
+    
     // Parse users profil asynchronously
     var wg sync.WaitGroup
 
     for i, _ := range users {
         wg.Add(1)
-        go ParseUserProfil(&wg, &users[i])
+        go ParseUserProfil(&wg, &users[i], &progress[i])
     }
 
     wg.Wait()
@@ -51,7 +58,14 @@ TODO:
     data, _ := json.Marshal(users)
     err = ioutil.WriteFile("users.json", data, 0644)
     if err != nil{
-        fmt.Println("[!] error in verify : cannot create file")
+        fmt.Println("[!] error RefreshUsers : cannot create users file")
+        return
+    }
+    // Create file with new data
+    data, _ = json.Marshal(progress)
+    err = ioutil.WriteFile("progress.json", data, 0644)
+    if err != nil{
+        fmt.Println("[!] error in RefreshUsers : cannot create progress file")
         return
     }
 

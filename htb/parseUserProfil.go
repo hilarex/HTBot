@@ -13,7 +13,7 @@ import (
     "sync"
 )
 
-func ParseUserProfil(wg *sync.WaitGroup, user *config.User){
+func ParseUserProfil(wg *sync.WaitGroup, user *config.User, progress *config.Progress){
 /*
 Get information about an user by scrapping his HTB profil
 */
@@ -116,6 +116,23 @@ Get information about an user by scrapping his HTB profil
     user.Rank = rank
     user.Challs = challenges
     user.Ownership = ownership
+
+    if progress != nil{
+        r = regexp.MustCompile(username+` owned (root|user) (?:.*?)(?:\d)">(.*?)<\/a>`)
+        matches := r.FindAllStringSubmatch(html, -1)
+        progress.Username = username
+        progress.Users = nil
+        progress.Roots = nil
+        progress.Challs = nil
+        for _, match := range matches{
+            switch string(match[1]){
+                case "root": 
+                    progress.Roots = append(progress.Roots, strings.ToLower(match[2]))
+                case "user":
+                    progress.Users = append(progress.Users, strings.ToLower(match[2]))
+            }
+        }
+    }
 
     return 
 }

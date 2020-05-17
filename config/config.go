@@ -7,7 +7,6 @@ import (
 )
 
 // Struct for config.json
-
 type Config struct {
 	Prefix      string `json:"Prefix"`
 	Htb    		ConfigHtb `json:"HTB"`
@@ -25,8 +24,7 @@ type ConfigDiscord struct {
 	Shoutbox    string `json:"shoutbox_id"`
 }
 
-// Struct for HTB json files
-
+// Struct for Users json file
 type User struct {
 	DiscordID  int 	`json:"discord_id"`
 	UserID     int    `json:"user_id"`
@@ -46,7 +44,7 @@ type User struct {
     Prolabs map[string]string `json:"prolabs"`
 }
 
-
+// Struct for Boxes json file
 type Maker struct{
 	ID		int  `json:"id"`
 	Name 	string `json:"name"`
@@ -70,6 +68,7 @@ type Box struct {
 	Difficulty 	[]int   `json:"difficulty_ratings"`
 }
 
+// Struct for Challs json file
 type Rate struct{
 	Pro 		string `json:"pro"`
 	Sucks 		string `json:"sucks"`
@@ -90,6 +89,7 @@ type Challenge struct{
     Description string 	`json:"description"`
 }
 
+// Struct for IppSec json file
 type Timestamp struct{
 	Minutes 	int 	`json:"minutes"`
 	Seconds 	int 	`json:"seconds"`
@@ -100,6 +100,15 @@ type Video struct{
 	Timestamp 	Timestamp `json:"timestamp"`
 	Line 		string 	`json:"line"`
 }
+
+// Struct for Progress json file
+type Progress struct{
+	Username	string   `json:"user_name"`
+	Users 		[]string `json:"user_owns"`
+	Roots  		[]string `json:"root_owns"`
+	Challs 		[]string `json:"chall_owns"`
+}
+
 
 type Notifs struct{
 	Success string 		`json:"success"`

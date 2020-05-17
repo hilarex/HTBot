@@ -27,7 +27,7 @@ func GetUserCommand(ctx framework.Context) {
 	user.UserID = id
 
 	// Parse HTB profil to fill data
-	htb.ParseUserProfil(nil, &user)
+	htb.ParseUserProfil(nil, &user, nil)
 
 	ReplyUserInfo(&ctx, &user)
 

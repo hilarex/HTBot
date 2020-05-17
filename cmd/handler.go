@@ -108,6 +108,8 @@ func CommandHandler(session *discordgo.Session, message *discordgo.MessageCreate
 			ListChallsCommand(*ctx)
 		case "ippsec":
 			IppsecCommand(*ctx)
+		case "progress":
+			ProgressCommand(*ctx)
 		default:
 			session.ChannelMessageSend(message.ChannelID, "🤔 I don't know this command !\nFor a list of help topics, type `"+config.Prefix+"help`")
 	}
