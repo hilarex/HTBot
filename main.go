@@ -14,6 +14,7 @@ import (
 func main() {
 /*
 TODO:
+	- Merge progress / prolab
 	- add writeup
 	- Add new roles when connecting
 	- remove user from users.json when he leaves discord (it breaks user.mention())
