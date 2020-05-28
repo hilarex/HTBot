@@ -36,14 +36,9 @@ TODO:
     }
     json.Unmarshal(byteValue, &users)
     
+    // Create progress slice
     progress := make([]config.Progress, len(users))
-    byteValue, err = ioutil.ReadFile("progress.json")
-    if err != nil{
-        fmt.Println("[!] Error RefreshUsers, cannot read progress.json")
-        return
-    }
-    json.Unmarshal(byteValue, &progress)
-    
+
     // Parse users profil asynchronously
     var wg sync.WaitGroup
 

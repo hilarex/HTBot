@@ -48,7 +48,7 @@ function to parse shoutbox api
             "box_pwn": `(?:.*)profile\/(\d+)\">(?:.*)<\/a> owned (.*) on <a(?:.*)profile\/(?:\d+)\">(.*)<\/a> <a(?:.*)`,
             "chall_pwn": `(?:.*)profile\/(\d+)\">(?:.*)<\/a> solved challenge <(?:.*)>(.*)<(?:.*)><(?:.*)> from <(?:.*)>(.*)<(?:.*)><(?:.*)`,
             //OLD "prolab_pwn": `(?:.*)profile\/(\d+)\">(?:.*)<\/a> got flag <(?:.*)>(.*)<\/span> from <(?:.*)>(.+?)<\/span> <`,
-            "prolab_pwn": `(?:.*)profile\/(\d+)\">(?:.*)just got flag (.*) from (.+?)!&amp`,
+            "prolab_pwn": `(?:.*)profile\/(\d+)\">(?:.*)just got flag (.+?) from (.+?)!`,
             "new_box_incoming": `(?:.*)Get ready to spill some (?:.* blood .*! <.*>)(.*)<(?:.* available in <.*>)(.*)<(?:.*)><(?:.*)`,
             "new_box_out": `(?:.*)>(.*)<(?:.*) is mass-powering on! (?:.*)`,
             "vip_upgrade": `(?:.*)profile\/(\d+)\">(?:.*)<\/a> became a <(?:.*)><(?:.*)><(?:.*)> V.I.P <(?:.*)`,

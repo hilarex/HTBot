@@ -6,6 +6,7 @@ import (
 
 	"fmt"
 	"github.com/bwmarrin/discordgo"
+	"io/ioutil"
 	"os"
 	"os/signal"
 	"syscall"
@@ -23,10 +24,18 @@ TODO:
 	- see https://github.com/bwmarrin/discordgo/wiki/FAQ#sending-embeds 
 	
 	- add challs in progress
-	- create just one write .json function and all goroutines that send to channel (see end of verifyCommand)
-	- add roles 
+	- add roles
 	- add retired challs
 */	
+	
+	// Create json files if doesn't exist
+	files := []string{"users", "challs", "boxes", "progress", "ippsec"}
+	for _, f := range files{
+		_, err := ioutil.ReadFile(f + ".json")
+    	if err != nil{
+        	ioutil.WriteFile(f + ".json", nil, 0644)
+    	}	
+	}
 
 	// Discord Bot
 	bot, err := discordgo.New("Bot " + config.Discord.Token)

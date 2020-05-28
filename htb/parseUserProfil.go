@@ -33,6 +33,7 @@ Get information about an user by scrapping his HTB profil
     resp, err := client.Do(req)
     if err != nil {
         print(err)
+        return
     }
     defer resp.Body.Close()
     
@@ -44,8 +45,9 @@ Get information about an user by scrapping his HTB profil
 
     // Read response
     body, err := ioutil.ReadAll(resp.Body)
-        if err != nil {
+    if err != nil {
         print(err)
+        return
     }
     html := string(body)
 
