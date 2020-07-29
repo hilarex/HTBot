@@ -57,7 +57,11 @@ func Login() {
 
     // find token 
     r, _ := regexp.Compile("type=\"hidden\" name=\"_token\" value=\"(.+?)\"")
-	crsf_token := r.FindStringSubmatch(string(body))[1]
+    token := r.FindStringSubmatch(string(body))
+    if len(token) == 0{
+        return
+    }
+	crsf_token := token[1]
 
     // Post request to login
     params := url.Values{}

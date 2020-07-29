@@ -11,6 +11,7 @@ echo        <sentence>          A simple echo command
 help                            Shows this message
 
 ippsec      <search_term>       Search through Ippsec videos
+role       <role_name>         Add or remove Discord role
 
 get_box     <box_name>          Get info on a box
 get_chall   <chall_name>        Get info on a chall

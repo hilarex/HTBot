@@ -23,7 +23,7 @@ func Ready(session *discordgo.Session, event *discordgo.Ready) {
 	tickerUsers		:= time.NewTicker(10 * time.Minute)
 	tickerBoxes		:= time.NewTicker(1  * time.Minute)
 	tickerChallenges:= time.NewTicker(10 * time.Minute)
-	tickerShoutbox 	:= time.NewTicker(3 * time.Second)
+	tickerShoutbox 	:= time.NewTicker(5 * time.Second)
 
 	go htb.StartLogin(tickerLogin)
 	go htb.StartParseShoutbox(tickerShoutbox, session)
@@ -110,6 +110,8 @@ func CommandHandler(session *discordgo.Session, message *discordgo.MessageCreate
 			IppsecCommand(*ctx)
 		case "progress":
 			ProgressCommand(*ctx)
+		case "role":
+			RoleCommand(*ctx)
 		default:
 			session.ChannelMessageSend(message.ChannelID, "🤔 I don't know this command !\nFor a list of help topics, type `"+config.Prefix+"help`")
 	}
