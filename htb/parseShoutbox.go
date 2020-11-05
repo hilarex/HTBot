@@ -153,7 +153,7 @@ function to parse shoutbox api
                             }
                         }
                     case "new_box_out":
-                        session.ChannelMessageSend(newHtbChannelID, fmt.Sprintf("🚨 new box %v is live ! 🚨\nWill you get first blood ? @here", match[1]))
+                        session.ChannelMessageSend(newHtbChannelID, fmt.Sprintf("🚨 new box %v is live ! 🚨\nWill you get first blood ?", match[1]))
                     default:
                         session.ChannelMessageSend(config.Discord.Shoutbox, fmt.Sprintf(typeOfNotif,"=",match[1:]))
                 }

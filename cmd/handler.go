@@ -22,7 +22,7 @@ func Ready(session *discordgo.Session, event *discordgo.Ready) {
 	tickerIppsec 	:= time.NewTicker(30 * time.Minute)
 	tickerUsers		:= time.NewTicker(10 * time.Minute)
 	tickerBoxes		:= time.NewTicker(1  * time.Minute)
-	tickerChallenges:= time.NewTicker(10 * time.Minute)
+	tickerChallenges:= time.NewTicker(15 * time.Minute)
 	tickerShoutbox 	:= time.NewTicker(5 * time.Second)
 
 	go htb.StartLogin(tickerLogin)

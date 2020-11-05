@@ -10,34 +10,44 @@ import (
 func RoleCommand(ctx framework.Context) {
     
     if len(ctx.Args) == 0{
-        ctx.Reply("Choose a role to add : htb, paris, rennes, tours")
+        ctx.Reply("Choose a role to add : htb, paris, rennes, tours, lille, canada")
         return
     }
     
-    roleWanted := strings.ToLower(ctx.Args[0])
-    
-    if ! framework.IsInSlice(roleWanted, []string{"htb", "paris", "rennes", "tours"}){
+    roleInput := strings.ToLower(ctx.Args[0])
+    remove := false
+
+    if roleInput[0] == '!'{
+        roleInput = roleInput[1:]
+        remove = true
+    }
+    if ! framework.IsInSlice(roleInput, []string{"htb", "paris", "rennes", "tours", "lille","canada"}){
     	ctx.Reply("I don't know this role..")
     	return
     }
 
     roles, _ := ctx.Discord.GuildRoles(config.Discord.GuildID)
-    newRole := ""
+    roleID := ""
 
     for _, role := range roles{
-    	if roleWanted == strings.ToLower(role.Name){
-    		newRole = role.ID
+    	if roleInput == strings.ToLower(role.Name){
+    		roleID = role.ID
             break
     	}
 
-        if strings.ToLower(role.Name) == "htb player" && roleWanted == "htb"{
-            newRole = role.ID
+        if strings.ToLower(role.Name) == "htb player" && roleInput == "htb"{
+            roleID = role.ID
             break
         }
     }
 
-    ctx.Discord.GuildMemberRoleAdd(config.Discord.GuildID, ctx.User.ID, newRole)
-    ctx.Reply("You got promoted ! 🍻")
+    if remove {
+        ctx.Discord.GuildMemberRoleRemove(config.Discord.GuildID, ctx.User.ID, roleID)
+        ctx.Reply("And it's over... 🔕")
+    } else {
+        ctx.Discord.GuildMemberRoleAdd(config.Discord.GuildID, ctx.User.ID, roleID)
+        ctx.Reply("You got promoted ! 🍻")
+    }
 
     return
 }
