@@ -21,7 +21,7 @@ func RoleCommand(ctx framework.Context) {
         roleInput = roleInput[1:]
         remove = true
     }
-    if ! framework.IsInSlice(roleInput, []string{"htb", "paris", "rennes", "tours", "lille","canada"}){
+    if ! framework.IsInSlice(roleInput, []string{"htb", "paris", "rennes", "tours", "lille", "canada"}){
     	ctx.Reply("I don't know this role..")
     	return
     }
@@ -45,8 +45,11 @@ func RoleCommand(ctx framework.Context) {
         ctx.Discord.GuildMemberRoleRemove(config.Discord.GuildID, ctx.User.ID, roleID)
         ctx.Reply("And it's over... 🔕")
     } else {
-        ctx.Discord.GuildMemberRoleAdd(config.Discord.GuildID, ctx.User.ID, roleID)
-        ctx.Reply("You got promoted ! 🍻")
+        member, _ := ctx.Discord.GuildMember(config.Discord.GuildID, ctx.User.ID)
+        if !framework.IsInSlice(roleID, member.Roles){
+            ctx.Discord.GuildMemberRoleAdd(config.Discord.GuildID, ctx.User.ID, roleID)
+            ctx.Reply("You got promoted ! 🍻")
+        }
     }
 
     return
