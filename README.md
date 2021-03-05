@@ -1,6 +1,6 @@
-# GoBot
+# HTBot
 
-GoBot is a discord bot that connect to HackTheBox to retrieve informations about users, boxes... and to notify you and your friends when you flag a challenge or own a new box.
+HTBot is a discord bot that connect to HackTheBox to retrieve informations about users, boxes... and to notify you and your friends when you flag a challenge or own a new box.
 
 Commands :
 ```
